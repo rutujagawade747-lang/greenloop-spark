@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CleanupsRouteImport } from './routes/cleanups'
+import { Route as MarketplaceRouteImport } from './routes/marketplace'
+import { Route as RecycleRouteImport } from './routes/recycle'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CleanupsRoute = CleanupsRouteImport.update({
+  id: '/cleanups',
+  path: '/cleanups',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketplaceRoute = MarketplaceRouteImport.update({
+  id: '/marketplace',
+  path: '/marketplace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecycleRoute = RecycleRouteImport.update({
+  id: '/recycle',
+  path: '/recycle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/cleanups': typeof CleanupsRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/recycle': typeof RecycleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/cleanups': typeof CleanupsRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/recycle': typeof RecycleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/cleanups': typeof CleanupsRoute
+  '/marketplace': typeof MarketplaceRoute
+  '/recycle': typeof RecycleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/auth' | '/cleanups' | '/marketplace' | '/recycle'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/auth' | '/cleanups' | '/marketplace' | '/recycle'
+  id: '__root__' | '/' | '/auth' | '/cleanups' | '/marketplace' | '/recycle'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  CleanupsRoute: typeof CleanupsRoute
+  MarketplaceRoute: typeof MarketplaceRoute
+  RecycleRoute: typeof RecycleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cleanups': {
+      id: '/cleanups'
+      path: '/cleanups'
+      fullPath: '/cleanups'
+      preLoaderRoute: typeof CleanupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/marketplace': {
+      id: '/marketplace'
+      path: '/marketplace'
+      fullPath: '/marketplace'
+      preLoaderRoute: typeof MarketplaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recycle': {
+      id: '/recycle'
+      path: '/recycle'
+      fullPath: '/recycle'
+      preLoaderRoute: typeof RecycleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  CleanupsRoute: CleanupsRoute,
+  MarketplaceRoute: MarketplaceRoute,
+  RecycleRoute: RecycleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
