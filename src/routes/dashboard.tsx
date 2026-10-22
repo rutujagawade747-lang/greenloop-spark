@@ -32,7 +32,7 @@ const Panel = ({ title, children, action }: { title: string; children: React.Rea
 );
 
 function Dashboard() {
-  const { user } = useStore();
+  const { user, rider } = useStore();
   if (!user) return (
     <div className="mx-auto max-w-md px-4 py-24 text-center">
       <h1 className="text-3xl font-semibold text-forest">Please log in</h1>
@@ -46,7 +46,7 @@ function Dashboard() {
       <h1 className="mt-3 text-4xl font-semibold text-forest">Welcome to EcoLoop 🌱</h1>
       <p className="text-muted-foreground">Hi {user.name} · {user.area}, {user.city}</p>
       <div className="mt-8 space-y-6">
-        {user.role === "admin" ? <Admin /> : user.role === "manufacturer" ? <Manufacturer /> : <><UserDash />{useStore().rider.status === "Active" && <Rider />}</>}
+        {user.role === "admin" ? <Admin /> : user.role === "manufacturer" ? <Manufacturer /> : <><UserDash />{rider.status === "Active" && <Rider />}</>}
       </div>
     </div>
   );
