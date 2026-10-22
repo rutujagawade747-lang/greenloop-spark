@@ -215,7 +215,7 @@ function Admin() {
             <p className="mt-1 text-muted-foreground">{r.level === "High" ? "This area may require a new EcoLoop collection point because of the high number of contributors and waste contributions." : r.level === "Medium" ? "Consider adding capacity — the nearby point is often full." : "Demand is low for now. Keep monitoring."}</p></div>
           {r.status === "Pending" ? <div className="mt-3 flex flex-wrap gap-2">
             <button className="btn btn-outline" onClick={() => toast(`Location: ${r.area} (sample map pin)`)}>View Location</button>
-            <button className="btn btn-primary" onClick={() => { upd((x) => ({ ...x, recs: x.recs.map((y) => y.id === r.id ? { ...y, status: "Approved" } : y), points: [...x.points, { id: x.uid(), name: `${r.area} New Point`, area: r.area.split(" ")[0], types: ["Plastic", "Paper"], status: "Open", km: 2 }] })); toast.success("Approved — collection point added"); }}>Approve</button>
+            <button className="btn btn-primary" onClick={() => { upd((x) => ({ ...x, recs: x.recs.map((y) => y.id === r.id ? { ...y, status: "Approved" } : y), points: [...x.points, { id: s.uid(), name: `${r.area} New Point`, area: r.area.split(" ")[0] ?? r.area, types: ["Plastic", "Paper"], status: "Open", km: 2 }] })); toast.success("Approved — collection point added"); }}>Approve</button>
             <button className="btn btn-outline" onClick={() => upd((x) => ({ ...x, recs: x.recs.map((y) => y.id === r.id ? { ...y, status: "Rejected" } : y) }))}>Reject</button>
           </div> : <span className="chip mt-3">{r.status}</span>}
         </div>
@@ -230,7 +230,7 @@ function Admin() {
       <div className="mt-2 flex flex-wrap gap-1">{WASTE.map((w) => <span key={w} className="chip">{w}</span>)}</div>
     </Panel>}
 
-    {tab === "Collection Points" && <Panel title="Collection points" action={<button className="btn btn-primary" onClick={() => { const n = prompt("Point name?"); if (n) upd((x) => ({ ...x, points: [...x.points, { id: x.uid(), name: n, area: AREAS[0], types: ["Plastic", "Paper"], status: "Open", km: 3 }] })); }}><Plus className="h-4 w-4" />Add</button>}>
+    {tab === "Collection Points" && <Panel title="Collection points" action={<button className="btn btn-primary" onClick={() => { const n = prompt("Point name?"); if (n) upd((x) => ({ ...x, points: [...x.points, { id: s.uid(), name: n, area: AREAS[0], types: ["Plastic", "Paper"], status: "Open", km: 3 }] })); }}><Plus className="h-4 w-4" />Add</button>}>
       <ul className="divide-y text-sm">{s.points.map((p) => <li key={p.id} className="flex items-center justify-between gap-2 py-2"><span><b>{p.name}</b> · {p.area}<br /><span className="text-muted-foreground">{p.types.join(", ")}</span></span>
         <span className="flex gap-2"><select value={p.status} onChange={(e) => upd((x) => ({ ...x, points: x.points.map((y) => y.id === p.id ? { ...y, status: e.target.value as typeof p.status } : y) }))} className="field w-auto py-1"><option>Open</option><option>Full</option><option>Maintenance</option></select>
           <button aria-label="Remove" onClick={() => upd((x) => ({ ...x, points: x.points.filter((y) => y.id !== p.id) }))}><Trash2 className="h-4 w-4 text-destructive" /></button></span></li>)}</ul>
