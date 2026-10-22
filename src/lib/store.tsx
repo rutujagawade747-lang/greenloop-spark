@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 export type Role = "user" | "rider" | "manufacturer" | "admin";
-export type User = { name: string; email: string; phone: string; city: string; area: string; role: Role; areas: string[]; bio?: string };
-export type Contribution = { id: string; type: string; qty: number; point: string; date: string; notes?: string; status: "Recorded" | "Collected" };
-export type Drive = { id: string; title: string; location: string; area: string; date: string; time: string; organizer: string; organizerEmail?: string; participants: number; needed: number; description: string; joined?: boolean; status: "Active" | "Pending" };
+export type User = { name: string; email: string; phone: string; city: string; area: string; role: Role; areas: string[]; bio?: string | undefined };
+export type Contribution = { id: string; type: string; qty: number; point: string; date: string; notes?: string | undefined; status: "Recorded" | "Collected" };
+export type Drive = { id: string; title: string; location: string; area: string; date: string; time: string; organizer: string; organizerEmail?: string | undefined; participants: number; needed: number; description: string; joined?: boolean | undefined; status: "Active" | "Pending" };
 export type Coin = { id: string; label: string; amount: number; date: string };
 export type Point = { id: string; name: string; area: string; types: string[]; status: "Open" | "Full" | "Maintenance"; km: number };
 export type Material = { id: string; name: string; kg: number };
@@ -22,7 +22,7 @@ const uid = () => Math.random().toString(36).slice(2, 9);
 type State = {
   user: User | null; users: number; contributions: Contribution[]; drives: Drive[]; coins: Coin[]; points: Point[];
   materials: Material[]; products: Product[]; requests: MatRequest[]; recs: Rec[]; riderTasks: RiderTask[]; notes: Note[];
-  rider: { status: "None" | "Pending" | "Active"; availability?: string; area?: string };
+  rider: { status: "None" | "Pending" | "Active"; availability?: string | undefined; area?: string | undefined };
   cart: string[];
 };
 
