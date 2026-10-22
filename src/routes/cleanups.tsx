@@ -39,7 +39,7 @@ function Cleanups() {
   const join = (d: Drive) => { joinDrive(d.id); toast.success(`You joined ${d.title}. ${d.organizer} has been notified.`); setDetail(null); };
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<"name"|"email"|"phone"|"city"|"area"|"bio"|"title"|"location"|"date"|"time"|"description"|"needed"|"desc"|"material"|"price"|"qty", string>;
     organizeDrive({ title: f.title, location: f.location, area: f.area, date: f.date, time: f.time, description: f.description, needed: Number(f.needed) });
     toast.success("Your cleanup drive is live!");
     setOrg(false);

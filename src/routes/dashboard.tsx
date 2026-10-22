@@ -145,7 +145,7 @@ function Manufacturer() {
   };
   const list = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<"name"|"email"|"phone"|"city"|"area"|"bio"|"title"|"location"|"date"|"time"|"description"|"needed"|"desc"|"material"|"price"|"qty", string>;
     set((s) => ({ ...s, products: [{ id: uid(), name: f.name, desc: f.desc, material: f.material, price: Number(f.price), qty: Number(f.qty), img: img || "bowl", coin: true, status: "Pending", seller: user!.name }, ...s.products] }));
     toast.success("Product submitted for admin approval");
     e.currentTarget.reset(); setImg("");

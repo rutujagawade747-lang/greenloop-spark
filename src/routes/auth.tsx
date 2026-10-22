@@ -31,7 +31,7 @@ function Auth() {
   const go = (u: Parameters<typeof login>[0]) => { login(u); nav({ to: "/dashboard" }); };
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
+    const f = Object.fromEntries(new FormData(e.currentTarget)) as Record<"name"|"email"|"phone"|"city"|"area"|"bio"|"title"|"location"|"date"|"time"|"description"|"needed"|"desc"|"material"|"price"|"qty", string>;
     const d = demo[role];
     go({
       name: f.name || d.name, email: f.email || d.email, phone: f.phone || "98200 12345",
